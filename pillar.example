@@ -1,0 +1,4 @@
+flynn:
+  cli:
+    download_url:  https://dl.flynn.io/cli
+    flynn_path: /usr/local/bin/flynn
