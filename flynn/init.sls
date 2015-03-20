@@ -12,9 +12,9 @@
     
 
 flynn:
-  'bash /root/install-flynn':
-    cmd:
-      - run
-      - onlyif: 'test ! -e /usr/local/bin/flynn-host'
-      - require:
-        - file: /root/install-flynn
+  cmd:
+    - name: 'bash /root/install-flynn'
+    - run
+    - onlyif: 'test ! -e /usr/local/bin/flynn-host'
+    - require:
+      - file: /root/install-flynn
