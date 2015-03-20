@@ -18,6 +18,3 @@ flynn:
       - onlyif: 'test ! -e /usr/local/bin/flynn-host'
       - require:
         - file: /root/install-flynn
-#  service.running:
-#    - name: {{ template.service }}
-#    - enable: True
