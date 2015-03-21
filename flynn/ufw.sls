@@ -40,7 +40,7 @@ ufw-flynn-interface-flynnbr0:
     - require:
       - pkg: ufw
 
-ufw-flynn-interface-flynnbr0:
+ufw-flynn-interface-vnet:
   ufw.allowed:
     - interface: 'vnet+'
     - require:
