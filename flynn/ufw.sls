@@ -31,7 +31,7 @@ ufw-flynn-user-ports:
   # Flynn peers
   {%- set to_addr = salt['mine.get'](grains['id'], 'network.ip_addrs').items()|first()|first() %}
   {%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
-  {%- for server, addrs = salt['mine.get'](selector, 'network.ip_addrs').items() %}
+  {%- for server, addrs in salt['mine.get'](selector, 'network.ip_addrs').items() %}
     {%- if server != grains['id'] %}
 ufw-flynn-peer-{{address}}:
   ufw.allowed:
