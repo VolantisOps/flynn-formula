@@ -30,7 +30,7 @@ ufw-flynn-user-ports:
       - pkg: ufw
 
   # Flynn peers
-  {%- for address, peer_details in flynn_ufw.get('peers', []) %}
+  {%- for address in flynn_ufw.get('peers', []) %}
     {%- set to_addr = salt['mine.get'](grains['id'], 'network.ip_addrs')| first %}
     {%- if to_addr != address %}
 ufw-flynn-peer-{{address}}:
