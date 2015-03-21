@@ -28,6 +28,18 @@ ufw-flynn-user-ports:
     - require:
       - pkg: ufw
 
+ufw-flynn-interface-flannel.1:
+  ufw.allowed:
+    - interface: flannel.1
+    - require:
+      - pkg:ufw
+
+ufw-flynn-interface-flynnbr0:
+  ufw.allowed:
+    - interface: flynnbr0
+    - require:
+      - pkg:ufw
+
 # Flynn peers
 {%- set local_interfaces = salt['mine.get'](grains['id'], 'network.interfaces')[grains['id']] %}
 {%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
