@@ -32,13 +32,13 @@ ufw-flynn-interface-flannel.1:
   ufw.allowed:
     - interface: flannel.1
     - require:
-      - pkg:ufw
+      - pkg: ufw
 
 ufw-flynn-interface-flynnbr0:
   ufw.allowed:
     - interface: flynnbr0
     - require:
-      - pkg:ufw
+      - pkg: ufw
 
 # Flynn peers
 {%- set local_interfaces = salt['mine.get'](grains['id'], 'network.interfaces')[grains['id']] %}
