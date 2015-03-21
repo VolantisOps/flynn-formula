@@ -28,15 +28,15 @@ ufw-flynn-user-ports:
     - require:
       - pkg: ufw
 
-ufw-flynn-interface-flannel.1:
+ufw-flynn-interface-flannel:
   ufw.allowed:
-    - interface: flannel.1
+    - interface: 'flannel.1'
     - require:
       - pkg: ufw
 
 ufw-flynn-interface-flynnbr0:
   ufw.allowed:
-    - interface: flynnbr0
+    - interface: 'flynnbr0'
     - require:
       - pkg: ufw
 
