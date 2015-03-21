@@ -34,6 +34,12 @@ ufw-flynn-interface-flannel:
     - require:
       - pkg: ufw
 
+ufw-flynn-interface-lo:
+  ufw.allowed:
+    - interface: 'lo'
+    - require:
+      - pkg: ufw
+
 ufw-flynn-interface-flynnbr0:
   ufw.allowed:
     - interface: 'flynnbr0'
