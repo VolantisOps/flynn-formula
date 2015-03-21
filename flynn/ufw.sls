@@ -1,5 +1,4 @@
 {% from "flynn/map.jinja" import flynn as flynn_map with context %}
-{% set flynn_ufw = pillar.get('flynn:ufw', {}) -%}
 
 ufw-flynn-http:
   ufw.allowed:
@@ -30,7 +29,7 @@ ufw-flynn-user-ports:
       - pkg: ufw
 
   # Flynn peers
-  {%- for address in flynn_ufw.get('peers', []) %}
+  {%- for address in salt['pillar.get']('flynn:ufw:peers', []) %}
     {%- set to_addr = salt['mine.get'](grains['id'], 'network.ip_addrs')| first %}
     {%- if to_addr != address %}
 ufw-flynn-peer-{{address}}:
