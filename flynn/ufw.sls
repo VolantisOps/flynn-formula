@@ -32,7 +32,7 @@ ufw-flynn-user-ports:
 {%- set local_interfaces = salt['mine.get'](grains['id'], 'network.interfaces')[grains['id']] %}
 {%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
 
-{%- for interface in [eth0, eth1] %}
+{%- for interface in ['eth0', 'eth1'] %}
   {%- set to_addr = local_interfaces[interface][inet][broadcast] %}
   {%- for host, interfaces in salt['mine.get'](selector, 'network.interfaces') %}
     {%- if host != grains['id'] %}
