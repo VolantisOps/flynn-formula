@@ -1,5 +1,4 @@
 {% from "flynn/map.jinja" import flynn as flynn_map with context %}
-{% from "flynn/map.jinja" import flynn as flynn_map with context %}
 {% set flynn = pillar.get('flynn', {}) -%}
 
 install-flynn:

@@ -1,4 +1,4 @@
-{% from "flynn/map.jinja" import cli as cli_map with context %}
+{% from "flynn/map.jinja" import flynn as flynn_map with context %}
 {% set cli = pillar.get('flynn:cli', {}) -%}
 
 flynn-cli:
