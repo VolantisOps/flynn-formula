@@ -31,12 +31,12 @@ ufw-flynn-user-ports:
   # Flynn peers
   {%- set to_addr = salt['mine.get'](grains['id'], 'network.ip_addrs').items()|first()|first() %}
   {%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
-  {%- for server, addrs in salt['mine.get'](selector, 'network.ip_addrs').items() %}
-    {%- if server != grains['id'] %}
-ufw-flynn-peer-{{address}}:
+  {%- for host, addrs in salt['mine.get'](selector, 'network.ip_addrs').items() %}
+    {%- if host != grains['id'] %}
+ufw-flynn-peer-{{ host }}:
   ufw.allowed:
-    - from_addr: {{address}}
-    - to_addr: {{to_addr}}
+    - from_addr: {{ addrs|first() }}
+    - to_addr: {{ to_addr }}
     - require:
       - pkg: ufw
     {%- endif %}
