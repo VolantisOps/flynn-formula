@@ -28,16 +28,21 @@ ufw-flynn-user-ports:
     - require:
       - pkg: ufw
 
-  # Flynn peers
-  {%- set to_addr = salt['mine.get'](grains['id'], 'network.ip_addrs')[grains['id']]|first() %}
-  {%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
-  {%- for host, addrs in salt['mine.get'](selector, 'network.ip_addrs').items() %}
+# Flynn peers
+{%- set local_interfaces = salt['mine.get'](grains['id'], 'network.interfaces')[grains['id']] %}
+{%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
+
+{%- for interface in [eth0, eth1] %}
+  {%- set to_addr = local_interfaces[interface][inet][broadcast] %}
+  {%- for host, interfaces in salt['mine.get'](selector, 'network.interfaces') %}
     {%- if host != grains['id'] %}
-ufw-flynn-peer-{{ host }}-{{ addrs|first() }}-to-{{ to_addr }}:
+      {%- from_addr = interfaces[interface][inet][broadcast] %}
+ufw-flynn-peer-{{ host }}-{{ from_addr }}-to-{{ to_addr }}:
   ufw.allowed:
-    - from_addr: {{ addrs|first() }}
+    - from_addr: {{ from_addr }}
     - to_addr: {{ to_addr }}
     - require:
       - pkg: ufw
     {%- endif %}
   {%- endfor %}
+{%- endfor %}
