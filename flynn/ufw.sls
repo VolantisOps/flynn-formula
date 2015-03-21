@@ -33,10 +33,10 @@ ufw-flynn-user-ports:
 {%- set selector = salt['pillar.get']('flynn:ufw:peers_glob', '*') %}
 
 {%- for interface in ['eth0', 'eth1'] %}
-  {%- set to_addr = local_interfaces[interface]['inet']['broadcast'] %}
+  {%- set to_addr = local_interfaces[interface]['inet'][0]['broadcast'] %}
   {%- for host, interfaces in salt['mine.get'](selector, 'network.interfaces').iteritems() %}
     {%- if host != grains['id'] %}
-      {%- set from_addr = interfaces[interface]['inet']['broadcast'] %}
+      {%- set from_addr = interfaces[interface]['inet'][0]['broadcast'] %}
 ufw-flynn-peer-{{ host }}-{{ from_addr }}-to-{{ to_addr }}:
   ufw.allowed:
     - from_addr: {{ from_addr }}
