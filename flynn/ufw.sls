@@ -34,7 +34,7 @@ ufw-flynn-user-ports:
 
 {%- for interface in ['eth0', 'eth1'] %}
   {%- set to_addr = local_interfaces[interface]['inet']['broadcast'] %}
-  {%- for host, interfaces in salt['mine.get'](selector, 'network.interfaces') %}
+  {%- for host, interfaces in salt['mine.get'](selector, 'network.interfaces').iteritems() %}
     {%- if host != grains['id'] %}
       {%- set from_addr = interfaces[interface]['inet']['broadcast'] %}
 ufw-flynn-peer-{{ host }}-{{ from_addr }}-to-{{ to_addr }}:
