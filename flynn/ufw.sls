@@ -18,7 +18,7 @@ ufw-flynn-https:
 ufw-flynn-git-ssh:
   ufw.allowed:
     - protocol: tcp
-    - to_port: 2222
+    - to_port: "2222"
     - require:
       - pkg: ufw
 
